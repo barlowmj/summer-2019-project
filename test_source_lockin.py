@@ -27,5 +27,7 @@ for i in range(4):
     res = volt / amp
     print(res)
     amp += 0.0002
-    time.sleep(1) # see how short of a sleep period works
+    time.sleep(1)
+
+source.write('SOUR:WAVE:ABOR')
 
