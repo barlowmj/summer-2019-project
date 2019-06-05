@@ -22,9 +22,8 @@ time.sleep(1) # set to 1 second for now, probably insufficient – look into ti
 
 # time constant: increasing makes output more steady, but also takes 5 time constants to settle, have to determine st trade-off is good
 
-Vnode_x0 = lockin.query_ascii_values('OUTP? 1')[0]
-Vnode_y0 = lockin.query_ascii_values('OUTP? 2')[0]
-Vnode0 = sqrt(Vnode_x0**2 + Vnode_y0**2)
+Vnode_vals0 = lockin.query_ascii_values('SNAP? 1,2')
+Vnode0 = sqrt(Vnode_vals0[0]**2 + Vnode_vals0[1]**2)
 
 # repeat for slightly lower Vs to obtain next data point for loop
 
@@ -36,9 +35,8 @@ Vs1 = 20 # ditto comment from Vs0
 
 time.sleep(1)
 
-Vnode_x1 = lockin.query_ascii_values('OUTP? 1')[0]
-Vnode_y1 = lockin.query_ascii_values('OUTP? 2')[0]
-Vnode1 = sqrt(Vnode_x1**2 + Vnode_y1**2)
+Vnode_vals1 = lockin.query_ascii_values('SNAP? 1,2')
+Vnode1 = sqrt(Vnode_vals1[0]**2 + Vnode_vals1[1]**2)
 
 # set next Vs from Newton's method algorithm
 
@@ -48,9 +46,7 @@ Vs2 = Vs1 - Vnode1*(Vs1 - Vs0)/(Vnode1 - Vnode0)
 
 time.sleep(1)
 
-Vnode_x2 = lockin.query_ascii_values('OUTP? 1')[0]
-Vnode_y2 = lockin.query_ascii_values('OUTP? 2')[0]
-Vnode2 = sqrt(Vnode_x1**2 + Vnode_y1**2)
+
 
 while abs(Vnode2) > acc:
     # reset parameters
@@ -63,9 +59,8 @@ while abs(Vnode2) > acc:
     # delay
     time.sleep(1)
     # obtain node voltage, at end runs accuracy check
-    Vnode_x2 = lockin.query_ascii_values('OUTP? 1')[0]
-    Vnode_y2 = lockin.query_ascii_values('OUTP? 2')[0]
-    Vnode2 = sqrt(Vnode_x1**2 + Vnode_y1**2)
+    Vnode_vals2 = lockin.query_ascii_values('SNAP? 1,2')
+    Vnode2 = sqrt(Vnode_vals2[0]**2 + Vnode_vals2[0]**2)
 
 # add Vs to a list? or export to file?
 
