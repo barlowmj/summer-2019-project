@@ -4,7 +4,6 @@ from time import sleep
 from pylab import plot, show, figure, xlabel, ylabel, title, legend
 from time_constant import time_const
 from wait_time import wait_time
-from numpy.fft import rfft, irfft
 
 f_start = 2.5
 f_end = 4.8
@@ -37,7 +36,7 @@ for i in range(length):
     t = wait_time(tau)
     source.write(f'SOUR:WAVE:FREQ {freq_values[i]}')
     lockin.write(f'OFLT {tau}')
-    sleep(t)
+    sleep(t+1)
     vals = lockin.query_ascii_values('SNAP? 1,2')
     Vx_values[i] = vals[0]
     Vy_values[i] = vals[1]
