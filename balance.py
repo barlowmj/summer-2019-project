@@ -3,7 +3,7 @@
 import time
 import visa
 import serial
-from check_length import check_length
+from balance_functions import check_length
 
 rm = visa.ResourceManager()
 lockin = rm.open_resource('GPIB0::5::INSTR') # should be lock-in amp's address, always check though
