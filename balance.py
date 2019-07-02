@@ -15,6 +15,20 @@ board2_location = '/dev/cu.wchusbserial145420' # change end 10, 20, 30 depending
 board1 = Board(board1_location)
 board2 = Board(board2_location)
 
+board1.set_control_chip()
+board2.set_control_chip()
+
+board2.set_q_gain(3000)
+
+board1.set_q_gain(4095)
+v0 = lockin.query_ascii_values('SNAP? 1,2')
+
+board1.set_q_gain(4075)
+v1 = lockin.query_ascii_values('SNAP? 1,2')
+
+
+
+
 
 
 
