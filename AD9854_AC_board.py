@@ -101,8 +101,10 @@ class Board:
             mode_bit = '4'
         elif mode == 'chirp':
             mode_bit = '6'
+        elif mode == 'bpsk':
+            mode_bit = '8'
         else:
-            print('Invalid input: please enter one of \'single tone\', \'fsk\', \'ramped fsk\', or \'chirp\'.')
+            print('Invalid input: please enter one of \'single tone\', \'fsk\', \'ramped fsk\', \'chirp\', or \'bpsk\'.')
             return
         self.control_chip_str = self.control_chip_str[0:8] + mode_bit + self.control_chip_str[9:20]
         self.ser.write(self.control_chip_str.encode('utf-8'))

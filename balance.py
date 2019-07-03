@@ -12,8 +12,6 @@ known_cap = 100e-12
 rm = visa.ResourceManager()
 lockin = rm.open_resource('GPIB0::5::INSTR') # should be lock-in amp's address, always check though
 
-#Vnode_vals0 = lockin.query_ascii_values('SNAP? 1,2') obtain x and y values from lockin
-
 # need to generalize locations – how??
 board1_location = '/dev/cu.wchusbserial145410'
 board2_location = '/dev/cu.wchusbserial145420' # change end to 10, 20, 30 depending on where in usb hub they are connected

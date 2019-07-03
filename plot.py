@@ -85,4 +85,5 @@ plot(res4)
 
 show()
 
-print(f'The values of popt[0] are {popt1[0]}, {popt2[0]}, {popt3[0]}, and {popt4[0]}.\nTheir average is {popta0}.\nThe values of popt[1] are {popt1[1]}, {popt2[1]}, {popt3[1]}, and {popt4[1]}.\nTheir average is {popta1}.')
+print(f'The values of popt[0] are {popt1[0]}, {popt2[0]}, {popt3[0]}, and {popt4[0]}.\nTheir average is {popta0}.\nThe '
+      f'values of popt[1] are {popt1[1]}, {popt2[1]}, {popt3[1]}, and {popt4[1]}.\nTheir average is {popta1}.')
