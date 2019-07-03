@@ -1,9 +1,8 @@
-from AD9854_DDS_Signal_Generator import Board
+from AD9854_AC_board import Board
 from numpy import arange, array
 from numpy.linalg import norm
 from pylab import plot, xlabel, ylabel, title, figure, show
 import time
-import serial
 import visa
 
 board = Board('/dev/cu.wchusbserial145410')

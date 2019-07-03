@@ -1,4 +1,4 @@
-from AD9854_DDS_Signal_Generator import Board
+from AD9854_AC_board import Board
 import time
 
 board = Board('/dev/cu.wchusbserial145410')

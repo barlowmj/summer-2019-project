@@ -32,6 +32,17 @@ for m in multiplier:
     fit4.append(linear(m, popt4[0], popt4[1]))
     fita.append(linear(m, popta0, popta1))
 
+res1 = []
+res2 = []
+res3 = []
+res4 = []
+for i in range(len(fit1)):
+    res1.append(fit1[i]-voltage1[i])
+    res2.append(fit2[i]-voltage2[i])
+    res3.append(fit3[i]-voltage3[i])
+    res4.append(fit4[i]-voltage4[i])
+
+
 figure(1)
 plot(multiplier, fit1)
 plot(multiplier, voltage1)
@@ -59,6 +70,18 @@ plot(multiplier, fit2)
 plot(multiplier, fit3)
 plot(multiplier, fit4)
 legend(['avg', '1', '2', '3', '4'])
+
+figure(6)
+plot(res1)
+
+figure(7)
+plot(res2)
+
+figure(8)
+plot(res3)
+
+figure(9)
+plot(res4)
 
 show()
 
