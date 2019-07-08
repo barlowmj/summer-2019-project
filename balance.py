@@ -2,9 +2,9 @@
 
 import time
 import visa
-from AD9854_AC_board import Board
+from AD9854 import Board
 
-board2_gain = 3000
+board2_gain = 1500
 error = 1e-7
 max_iterations = 20
 known_cap = 100e-12
@@ -41,7 +41,7 @@ slope = (v1[0]-v0[0])/(gain1-gain0)
 gain2 = gain1 - v1/slope
 
 i = 0
-while (v1-0) < error and i < max_iterations:
+while abs(v1) < error and i < max_iterations:
     gain0 = gain1
     gain1 = gain2
     v0 = v1

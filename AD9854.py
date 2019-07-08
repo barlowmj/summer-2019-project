@@ -10,7 +10,7 @@ class Board:
         self.control_chip_str = None
 
     def init_control_chip(self):
-        # turns OSK_EN on & freq mult to – necessary to control amplitude gain, and to get desired output frequency (respectively)
+        # turns OSK_EN on & freq mult to x10 – necessary to control amplitude gain, and to get desired output frequency (respectively) – and single tone output signal
         # use this before set_thing, set_OSK_EN, set_freq_mult, set_work_mode
         self.ser.write(b'$WR0760004A000000B2*')
         self.control_chip_str = '$WR0760004A000000B2*'
@@ -43,9 +43,7 @@ class Board:
         ftw_hex_str = ftw_hex_str[2:len(ftw_hex_str)]  # eliminate 0x at beginning
         while len(ftw_hex_str) < 12:
             ftw_hex_str = '0'+ftw_hex_str
-        command = '$WR02'+ftw_hex_str[10:12]+ftw_hex_str[8:10]+ftw_hex_str[6:8]+ftw_hex_str[4:6]+ftw_hex_str[
-                                                                                                 2:4]+ftw_hex_str[
-                                                                                                      0:2]+'00*'
+        command = '$WR02'+ftw_hex_str[10:12]+ftw_hex_str[8:10]+ftw_hex_str[6:8]+ftw_hex_str[4:6]+ftw_hex_str[2:4]+ftw_hex_str[0:2]+'00*'
         command = command.upper()
         self.ser.write(command.encode('utf-8'))
         return
@@ -64,7 +62,7 @@ class Board:
         else:
             print('Invalid input: please input one of \'none\', \'triangle\', \'clr_acc1\', or \'clr_acc2\'.')
             return
-        self.control_chip_str = self.control_chip_str[0:7] + mode_bit + self.control_chip_str[8:20]
+        self.control_chip_str[7] = mode_bit
         self.ser.write(self.control_chip_str.encode('utf-8'))
         return
 
@@ -76,7 +74,7 @@ class Board:
         else:
             print('Invalid input: please input one of \'on\' or \'off\'.')
             return
-        self.control_chip_str = self.control_chip_str[0:5] + mode_bit + self.control_chip_str[6:20]
+        self.control_chip_str[5] = mode_bit
         self.ser.write(self.control_chip_str.encode('utf-8'))
         return
 
@@ -87,7 +85,7 @@ class Board:
         else:
             print('Invalid input: please make sure that your frequency multiplier is an integer between 1 and 10.')
             return
-        self.control_chip_str = self.control_chip_str[0:10] + fq_str + self.control_chip_str[11:20]
+        self.control_chip_str[10] = fq_str
         self.ser.write(self.control_chip_str.encode('utf-8'))
         return
 
@@ -106,7 +104,7 @@ class Board:
         else:
             print('Invalid input: please enter one of \'single tone\', \'fsk\', \'ramped fsk\', \'chirp\', or \'bpsk\'.')
             return
-        self.control_chip_str = self.control_chip_str[0:8] + mode_bit + self.control_chip_str[9:20]
+        self.control_chip_str[8] = mode_bit
         self.ser.write(self.control_chip_str.encode('utf-8'))
         return
 

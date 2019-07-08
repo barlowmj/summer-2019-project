@@ -1,4 +1,4 @@
-from AD9854_AC_board import Board
+from AD9854 import Board
 from numpy import arange, array
 from numpy.linalg import norm
 from pylab import plot, xlabel, ylabel, title, figure, show
