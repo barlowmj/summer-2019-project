@@ -1,16 +1,9 @@
 from AD9854 import Board
 import time
+import sys
 
-location =  '/dev/cu.wchusbserial145410'
-b = Board(location)
+def main():
+    return
 
-b.init_control_chip()
-time.sleep(2)
-b.set_i_gain(1000)
-time.sleep(10)
-b.set_i_gain(2000)
-
-
-
-
-
+if __name__ == '__main__':
+    main()
