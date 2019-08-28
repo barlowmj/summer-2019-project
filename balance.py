@@ -2,15 +2,20 @@
 
 import time
 import visa
-from AD9854 import Board
+#from AD9854 import Board
 import sys
+from serial import Serial
 
 def newtons_method(board1, lockin, gain0, gain1):
     max_iterations = 20
-    board1.q(gain0)
+    #board1.q(gain0)
+    serial.write(f'SET {gain0}')
+    serial.read()
     time.sleep(0.0005) # adjust time based on tau – use the function already written?
     v0 = lockin.query_ascii_values('SNAP? 1,2')
-    board1.q(gain1)
+    #board1.q(gain1)
+    serial.write(f'SET {gain1}')
+    serial.read()
     time.sleep(0.0005)
     v1 = lockin.query_ascii_values('SNAP? 1,2')
     slope = (v1[0]-v0[0])/(gain1-gain0)
@@ -51,22 +56,34 @@ def main():
     # OS though?
     # change end to 10, 20, 30 depending on where in usb hub they are
     # connected
+    '''
     board1 = Board(board1_location)
     board2 = Board(board2_location)
-
+    '''
+    serial = Serial('board1_location')
     '''
     # turns on OSK_EN and sets frequency multiplier to x10 (see class & documentation for reasoning)
     board1.init_control_chip()
     board2.init_control_chip()
     '''
     # set frequency of the boards
+    '''
     board1.f1(frequency)
     board2.f1(frequency)
+    '''
+    serial.write('INIT \r')
+    serial.read()
+
+    serial.write('*RDY? \r')
+    serial.read()
+
+    serial.write(f'FRQ {frequency}')
+    serial.read()
 
     # set board 2's gain to a constant
-    board2.q(board2_gain)
+    #board2.q(board2_gain)
 
-    null_gain = newtons_method(board1, lockin, gain0, gain1)
+    #null_gain = newtons_method(board1, lockin, gain0, gain1)
 
 if __name__ == '__main__':
     main()

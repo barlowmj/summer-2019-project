@@ -110,7 +110,7 @@ class Board:
         self.ser.write(command)
         return
 
-    def osk(self, power):
+    def osk_en(self, power):
         if power == 'on':
             logic = 'high'
         elif power == 'off':
