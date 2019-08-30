@@ -6,10 +6,12 @@ import visa
 import sys
 from serial import Serial
 
-def newtons_method(board1, lockin, gain0, gain1):
+# check syntax for gain setting, etc: think it's "SET {channel} {gain} \r" but unclear from arduino code
+
+def newtons_method(serial, lockin, gain0, gain1):
     max_iterations = 20
     #board1.q(gain0)
-    serial.write(f'SET {gain0}')
+    serial.write(f'SET {gain0}\r')
     serial.read()
     time.sleep(0.0005) # adjust time based on tau – use the function already written?
     v0 = lockin.query_ascii_values('SNAP? 1,2')
@@ -26,7 +28,8 @@ def newtons_method(board1, lockin, gain0, gain1):
         gain0 = gain1
         gain1 = gain2
         v0 = v1
-        board1.q(round(gain1))
+        #board1.q(round(gain1))
+        serial.write(f'SET {gain1}\r')
         time.sleep(0.0005)
         v1 = lockin.query_ascii_values('SNAP? 1,2')
         slope = (v1-v0)/(gain1-gain0)
@@ -74,16 +77,16 @@ def main():
     serial.write('INIT \r')
     serial.read()
 
-    serial.write('*RDY? \r')
+    serial.write('*RDY?\r')
     serial.read()
 
-    serial.write(f'FRQ {frequency}')
+    serial.write(f'FRQ {frequency}\r')
     serial.read()
 
     # set board 2's gain to a constant
     #board2.q(board2_gain)
 
-    #null_gain = newtons_method(board1, lockin, gain0, gain1)
+    #null_gain = newtons_method(serial, lockin, gain0, gain1)
 
 if __name__ == '__main__':
     main()
